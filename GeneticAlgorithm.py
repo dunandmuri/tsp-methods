@@ -3,7 +3,9 @@ import math
 import matplotlib.pyplot as plt
 import matplotlib
 
-#gets the dictionary {node:(Xcoord, Ycoord)} from a .tsp file
+#gets the dictionary graph {node:(Xcoord, Ycoord)} from a .tsp file
+#requires: a file path leading to the wanted .tsp file
+#returns a dictionary of all nodes in the .tsp problem.
 def get_graph_from_file(filepath):
     f = open(filepath, "r")
     coord_dict = {}
@@ -30,9 +32,12 @@ class GP():
         self.tournament_size = 10
         self.max_iters = 1000
         self.elites = 30
+        
+        #assert self.tournament_size<=self.population_size
+        #assert self.elites<=self.population_size
 
 
-    #The main method. Set graph to True if you also want to output a graph of the convergence
+    #The main method. Set graph to True to output a graph of the convergence curve
     def main_method(self, graph = False):
         x = []
         y = []
@@ -63,7 +68,7 @@ class GP():
         #returns the fittest individual in the final generation
         return min(self.population, key = lambda x: x[1])
 
-    #makes a greedy guess of the best individual
+    #makes a greedy guess of the best individual solution
     def make_initial_guess(self):
         path = []
         node_list = list(self.coords.keys())
@@ -101,6 +106,8 @@ class GP():
             total+=distance
         return total
 
+    #Genetic programming:
+    #makes a new generation by crossover and mutation of previous generation
     def make_new_generation(self):
         new_population = []
 
@@ -152,7 +159,7 @@ class GP():
                 child[next_available_index] = parents[1][i]
         return child
 
-    #helper function to find available indices in child
+    #helper function to find available indices in child for crossover
     def next_available_index(self, child):
         for i in range(len(child)):
             if child[i] is None:
@@ -174,10 +181,5 @@ def main(filepath, have_graph = False):
     graph= get_graph_from_file(filepath)
     gp = GP(graph)
     return gp.main_method(graph = have_graph)
-                
-#UNCOMMENT THESE TO RUN
-#print(main("tiny.txt"))
-#print(main("a280.tsp"))
-#print(main("a280.tsp", have_graph = True))
 
                                    
