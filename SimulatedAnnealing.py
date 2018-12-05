@@ -1,3 +1,5 @@
+#Uses simulated annealing to estimate a solution to a traveling salesman problem.
+
 import random
 import math
 import matplotlib.pyplot as plt
@@ -122,12 +124,6 @@ def simulated_annealing_graph(filepath, maxiters=1000):
 
     plt.show()
     return S, C(S, graph)
-
-#UNCOMMENT THESE TO TEST
-
-#print(simulated_annealing("tiny.txt"))   
-#print(simulated_annealing("a280.tsp"))
-#print(simulated_annealing_graph("a280.tsp"))
 
 
 
