@@ -1,3 +1,5 @@
+#Uses a minimum spanning tree to estimate a solution to the travelling salesman problem.
+
 import sys
 def distance(node1, node2):
     return ((node2[2]-node1[2])**2+(node2[1]-node1[1])**2)**.5
@@ -136,8 +138,4 @@ def DFS(graph, v):
 
     # Call the recursive helper function for DFS
     return DFSUtil(graph, v, [], [], v[0]) 
-
-#UNCOMMENT THESE TO RUN
-#print(get_MST_heuristic("tiny.txt"))
-#print(get_MST_heuristic("a280.tsp"))
     
